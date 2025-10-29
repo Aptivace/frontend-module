@@ -1,5 +1,5 @@
 import { useState, useContext, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { userContext } from "./App";
 import { $fetch } from "./api";
 
@@ -18,7 +18,7 @@ const Login = () => {
       if (res?.errors) {
         setError(res?.errors);
       } else {
-        localStorage.setItem("token", res?.data?.credentials?.token);
+        localStorage.setItem("token", res?.credentials?.token);
         setUser(true);
         navigate("/");
       }
@@ -27,12 +27,12 @@ const Login = () => {
 
   const { user, setUser } = useContext(userContext);
   return (
-    <div id="login-page" className="page" style="display: none;">
+    <div id="login-page" className="page">
       <div className="form-container">
         <h2 className="form-title">С возвращением!</h2>
         <form id="login-form" ref={logForm} onSubmit={submitForm}>
           <div className="form-group">
-            <label for="login-email">Email</label>
+            <label htmlFor="login-email">Email</label>
             <input
               name="email"
               type="email"
@@ -47,7 +47,7 @@ const Login = () => {
             )}
           </div>
           <div className="form-group">
-            <label for="login-password">Пароль</label>
+            <label htmlFor="login-password">Пароль</label>
             <input
               name="password"
               type="password"
@@ -65,7 +65,7 @@ const Login = () => {
             <i className="fas fa-sign-in-alt"></i> Войти
           </button>
           <div className="text-center mt-3">
-            <a href="#">Нет аккаунта? Зарегистрируйтесь</a>
+            <Link to="/register">Нет аккаунта? Зарегистрируйтесь</Link>
           </div>
         </form>
       </div>

@@ -1,36 +1,38 @@
+import { Link, NavLink } from "react-router-dom";
+
 const Header = () => {
   return (
     <header>
       <div className="container">
         <nav className="navbar">
-          <a href="#" className="logo">
+          <Link href="#" className="logo">
             <i className="fas fa-pen-nib"></i>
             <span>БлогПлатформа</span>
-          </a>
+          </Link>
           <ul className="nav-links">
             <li>
-              <a href="#" className="active">
+              <NavLink to="/">
                 <i className="fas fa-home"></i> Главная
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/user">
                 <i className="fas fa-user"></i> Мой профиль
-              </a>
+              </NavLink>
             </li>
             <li>
-              <a href="#">
+              <NavLink to="/post/create">
                 <i className="fas fa-plus-circle"></i> Создать пост
-              </a>
+              </NavLink>
             </li>
           </ul>
           <div className="user-actions">
-            <a href="#" className="btn btn-outline">
+            <Link to="/login" className="btn btn-outline">
               <i className="fas fa-sign-in-alt"></i> Войти
-            </a>
-            <a href="#" className="btn">
+            </Link>
+            <Link to="/register" className="btn">
               <i className="fas fa-user-plus"></i> Регистрация
-            </a>
+            </Link>
           </div>
         </nav>
       </div>

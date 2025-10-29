@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { $fetch } from "./api";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Register = () => {
   const [error, setError] = useState();
@@ -79,7 +79,7 @@ const Register = () => {
             <i class="fas fa-user-plus"></i> Зарегистрироваться
           </button>
           <div class="text-center mt-3">
-            <a href="#">Уже есть аккаунт? Войдите</a>
+            <Link to="/login">Уже есть аккаунт? Войдите</Link>
           </div>
         </form>
       </div>

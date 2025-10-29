@@ -1,30 +1,66 @@
-const Post = ({ title, description, img, likedIt, countLikes, createdAt }) => {
+import { useState } from "react";
+import { $fetch } from "./api";
+
+const Post = ({
+  id,
+  title,
+  description,
+  img,
+  liked_it,
+  count_likes,
+  created_at,
+}) => {
+  const [isLiked, setIsLiked] = useState(liked_it);
+  const [countLikes, setCountLikes] = useState(count_likes);
+
+  const addLike = async () => {
+    const res = await $fetch(`/posts/${id}/like`, "POST");
+
+    console.log(res);
+    if (res) {
+      setCountLikes((prev) => prev + 1);
+      setIsLiked(true);
+    }
+  };
+
+  const removeLike = async () => {
+    const res = await $fetch(`/posts/${id}/like`, "DELETE");
+
+    console.log(res);
+    if (res) {
+      setCountLikes((prev) => prev - 1);
+      setIsLiked(false);
+    }
+  };
+
   return (
-    <div class="post-card">
-      <img src={img} alt="Изображение публикации" class="post-image" />
-      <div class="post-content">
-        <h3 class="post-title">{title}</h3>
-        <p class="post-text">{description}</p>
-        <div class="post-meta">
-          <span class="post-date">
-            <i class="far fa-calendar"></i> {createdAt}
+    <div className="post-card">
+      {img && (
+        <img src={img} alt="Изображение публикации" className="post-image" />
+      )}
+      <div className="post-content">
+        <h3 className="post-title">{title}</h3>
+        <p className="post-text">{description}</p>
+        <div className="post-meta">
+          <span className="post-date">
+            <i className="far fa-calendar"></i> {created_at}
           </span>
-          <span class="post-likes">
-            <i class="fas fa-heart"></i> {countLikes}
+          <span className="post-likes">
+            <i className="fas fa-heart"></i> {countLikes}
           </span>
         </div>
-        <div class="post-actions">
-          {likedIt ? (
-            <button class="like-btn liked">
-              <i class="far fa-heart"></i> Убрать лайк
+        <div className="post-actions">
+          {isLiked ? (
+            <button className="like-btn liked" onClick={removeLike}>
+              <i className="far fa-heart"></i> Убрать лайк
             </button>
           ) : (
-            <button class="like-btn">
-              <i class="far fa-heart"></i> Лайк
+            <button className="like-btn" onClick={addLike}>
+              <i className="far fa-heart"></i> Лайк
             </button>
           )}
-          <a href="#" class="author-btn">
-            <i class="fas fa-user-edit"></i> Автор
+          <a href="#" className="author-btn">
+            <i className="fas fa-user-edit"></i> Автор
           </a>
         </div>
       </div>
