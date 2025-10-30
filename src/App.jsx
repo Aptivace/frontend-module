@@ -7,6 +7,7 @@ import Login from "./Login";
 import Register from "./Register";
 import Home from "./Home";
 import PostForm from "./PostForm";
+import UserPage from "./UserPage";
 
 export const userContext = createContext();
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/login" Component={Login} />
               <Route path="/register" Component={Register} />
               <Route path="/post/create" Component={PostForm} />
+              <Route path="/user/:userId" Component={UserPage} />
             </Route>
           </Routes>
         </HashRouter>

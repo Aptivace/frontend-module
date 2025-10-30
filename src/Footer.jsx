@@ -1,24 +1,26 @@
+import { Link } from "react-router-dom";
+
 const Footer = () => {
   return (
     <footer>
       <div className="container">
         <div className="footer-content">
-          <a href="#" className="footer-logo">
+          <Link to="#" className="footer-logo">
             <i className="fas fa-pen-nib"></i>
             <span>БлогПлатформа</span>
-          </a>
+          </Link>
           <ul className="footer-links">
             <li>
-              <a href="#">О нас</a>
+              <Link to="#">О нас</Link>
             </li>
             <li>
-              <a href="#">Правила</a>
+              <Link to="#">Правила</Link>
             </li>
             <li>
-              <a href="#">Контакты</a>
+              <Link to="#">Контакты</Link>
             </li>
             <li>
-              <a href="#">Помощь</a>
+              <Link to="#">Помощь</Link>
             </li>
           </ul>
           <p className="copyright">

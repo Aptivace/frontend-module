@@ -17,15 +17,6 @@ const Home = () => {
         </Link>
       </div>
 
-      <div className="search-container">
-        <i className="fas fa-search search-icon"></i>
-        <input
-          type="text"
-          className="search-input"
-          placeholder="Поиск по заголовку..."
-        />
-      </div>
-
       <Posts />
     </div>
   );

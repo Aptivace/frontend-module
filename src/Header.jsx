@@ -1,11 +1,27 @@
-import { Link, NavLink } from "react-router-dom";
+import { useContext } from "react";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import { userContext } from "./App";
+import { $fetch } from "./api";
 
 const Header = () => {
+  const { user, setUser } = useContext(userContext);
+  const navigate = useNavigate();
+
+  const logOut = async () => {
+    $fetch("/logout");
+
+    localStorage.removeItem("token");
+    setUser(false);
+    navigate("/login");
+  };
+
+  console.log(user);
+
   return (
     <header>
       <div className="container">
         <nav className="navbar">
-          <Link href="#" className="logo">
+          <Link to="#" className="logo">
             <i className="fas fa-pen-nib"></i>
             <span>БлогПлатформа</span>
           </Link>
@@ -16,9 +32,9 @@ const Header = () => {
               </NavLink>
             </li>
             <li>
-              <NavLink to="/user">
+              <Link to="/user">
                 <i className="fas fa-user"></i> Мой профиль
-              </NavLink>
+              </Link>
             </li>
             <li>
               <NavLink to="/post/create">
@@ -27,12 +43,20 @@ const Header = () => {
             </li>
           </ul>
           <div className="user-actions">
-            <Link to="/login" className="btn btn-outline">
-              <i className="fas fa-sign-in-alt"></i> Войти
-            </Link>
-            <Link to="/register" className="btn">
-              <i className="fas fa-user-plus"></i> Регистрация
-            </Link>
+            {user ? (
+              <button onClick={logOut} className="btn btn-outline">
+                <i className="fas fa-sign-in-alt"></i> Выйти
+              </button>
+            ) : (
+              <>
+                <Link to="/login" className="btn btn-outline">
+                  <i className="fas fa-sign-in-alt"></i> Войти
+                </Link>
+                <Link to="/register" className="btn">
+                  <i className="fas fa-user-plus"></i> Регистрация
+                </Link>
+              </>
+            )}
           </div>
         </nav>
       </div>

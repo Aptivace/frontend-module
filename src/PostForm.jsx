@@ -1,12 +1,22 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { $fetch } from "./api";
+import { userContext } from "./App";
 import { useRef } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const PostForm = () => {
+  const { user } = useContext(userContext);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+    }
+  });
+
   const [error, setError] = useState();
   const postForm = useRef();
-  const navigate = useNavigate();
 
   const submitForm = async (e) => {
     e.preventDefault();

@@ -9,38 +9,52 @@ const Posts = () => {
   const [posts, setPosts] = useState([]);
 
   const fetchData = async (pageNum, searchText = "") => {
-    const params = new URLSearchParams({
+    const params = {
       page: pageNum.toString(),
-    });
+    };
 
     if (searchText) {
-      params.append("search", searchText);
+      params.search = searchText;
     }
 
-    const res = await $fetch(`/posts?${params}`);
-    console.log(res);
+    const res = await $fetch(`/posts`, "GET", params);
     if (res) {
-      setPosts(res?.data);
+      setPosts(res.data);
     }
   };
 
   useEffect(() => {
-    fetchData(page, search);
-  }, [page]);
+    const timer = setTimeout(() => {
+      setPage(1);
+      fetchData(1, search);
+    }, 500);
 
-  console.log(posts);
+    return () => clearTimeout(timer);
+  }, [page, search]);
 
   return (
     <>
+      <div className="search-container">
+        <i className="fas fa-search search-icon"></i>
+        <input
+          name="search"
+          type="text"
+          className="search-input"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Поиск по заголовку..."
+        />
+      </div>
+
       <div className="posts-grid">
         {posts && posts.map((post) => <Post key={post?.id} {...post} />)}
       </div>
 
       <ul className="pagination">
         <li>
-          <a href="#" className="active">
+          <button href="#" className="active">
             1
-          </a>
+          </button>
         </li>
         <li>
           <a href="#">2</a>

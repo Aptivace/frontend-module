@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { $fetch } from "./api";
+import { Link } from "react-router-dom";
 
 const Post = ({
   id,
@@ -9,6 +10,7 @@ const Post = ({
   liked_it,
   count_likes,
   created_at,
+  post_maker_id,
 }) => {
   const [isLiked, setIsLiked] = useState(liked_it);
   const [countLikes, setCountLikes] = useState(count_likes);
@@ -59,9 +61,9 @@ const Post = ({
               <i className="far fa-heart"></i> Лайк
             </button>
           )}
-          <a href="#" className="author-btn">
+          <Link to={`/user/${post_maker_id}`} className="author-btn">
             <i className="fas fa-user-edit"></i> Автор
-          </a>
+          </Link>
         </div>
       </div>
     </div>

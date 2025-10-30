@@ -1,8 +1,17 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useContext, useEffect } from "react";
 import { $fetch } from "./api";
 import { useNavigate, Link } from "react-router-dom";
+import { userContext } from "./App";
 
 const Register = () => {
+  const { user } = useContext(userContext);
+
+  useEffect(() => {
+    if (user) {
+      navigate("/");
+    }
+  });
+
   const [error, setError] = useState();
   const regForm = useRef();
   const navigate = useNavigate();
@@ -26,59 +35,59 @@ const Register = () => {
   };
 
   return (
-    <div id="register-page" class="page" style="display: none;">
-      <div class="form-container">
-        <h2 class="form-title">Присоединяйтесь к нам!</h2>
+    <div id="register-page" className="page">
+      <div className="form-container">
+        <h2 className="form-title">Присоединяйтесь к нам!</h2>
         <form id="register-form" ref={regForm} onSubmit={submitForm}>
-          <div class="form-group">
-            <label for="register-email">Email</label>
+          <div className="form-group">
+            <label htmlFor="register-email">Email</label>
             <input
               name="email"
               type="email"
               id="register-email"
-              class="form-control"
+              className="form-control"
               placeholder="Введите ваш email"
             />
             {error?.email && (
-              <div class="error-message">
-                <i class="fas fa-exclamation-circle"></i> {error?.email}
+              <div className="error-message">
+                <i className="fas fa-exclamation-circle"></i> {error?.email}
               </div>
             )}
           </div>
-          <div class="form-group">
-            <label for="register-username">Никнейм</label>
+          <div className="form-group">
+            <label htmlFor="register-username">Никнейм</label>
             <input
               name="nickname"
               type="text"
               id="register-username"
-              class="form-control"
+              className="form-control"
               placeholder="Введите ваш никнейм"
             />
             {error?.nickname && (
-              <div class="error-message">
-                <i class="fas fa-exclamation-circle"></i> {error?.nickname}
+              <div className="error-message">
+                <i className="fas fa-exclamation-circle"></i> {error?.nickname}
               </div>
             )}
           </div>
-          <div class="form-group">
-            <label for="register-password">Пароль</label>
+          <div className="form-group">
+            <label htmlFor="register-password">Пароль</label>
             <input
               name="password"
               type="password"
               id="register-password"
-              class="form-control"
+              className="form-control"
               placeholder="Придумайте надежный пароль"
             />
             {error?.password && (
-              <div class="error-message">
-                <i class="fas fa-exclamation-circle"></i> {error?.password}
+              <div className="error-message">
+                <i className="fas fa-exclamation-circle"></i> {error?.password}
               </div>
             )}
           </div>
-          <button type="submit" class="btn btn-block">
-            <i class="fas fa-user-plus"></i> Зарегистрироваться
+          <button type="submit" className="btn btn-block">
+            <i className="fas fa-user-plus"></i> Зарегистрироваться
           </button>
-          <div class="text-center mt-3">
+          <div className="text-center mt-3">
             <Link to="/login">Уже есть аккаунт? Войдите</Link>
           </div>
         </form>
